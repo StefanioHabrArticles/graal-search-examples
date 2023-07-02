@@ -37,15 +37,15 @@ namespace ConsoleApp2
             ).Merge();
             Console.WriteLine(string.Join("", chars));
 
-            var someDtosCatalogue = new Catalogue<SomeDto>()
+            var someDtoCatalogue = new Catalogue<SomeDto>()
                 .Add(new SomeDto(1, false, "asa"))
                 .Add(new SomeDto(2, true, "asa"))
                 .Remove(new SomeDto(1, false, "asa"));
-            Console.WriteLine(someDtosCatalogue.Reduce(_ => 1));
-            var logs = someDtosCatalogue.ToList();
+            Console.WriteLine(someDtoCatalogue.Reduce(_ => 1));
+            var logs = someDtoCatalogue.ToList();
             logs.ForEach(Console.WriteLine);
-            var someDtosObjects = someDtosCatalogue.Collect();
-            someDtosObjects.ForEach(Console.WriteLine);
+            var someDtoObjects = someDtoCatalogue.Collect();
+            someDtoObjects.ForEach(Console.WriteLine);
         }
     }
 }
