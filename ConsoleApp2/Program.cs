@@ -15,6 +15,15 @@ namespace ConsoleApp2
             };
             var richest = people.Sum();
             Console.WriteLine(richest);
+
+            var predicates = new List<Predicate<char>>
+            {
+                x => x is >= '0' and <= '9',
+                x => x is >= 'A' and <= 'Z',
+                x => x is >= 'a' and <= 'z'
+            }.Select<Predicate<char>, Any<char>>(x => x).ToList();
+            var digitOrLetter = predicates.Sum();
+            Console.WriteLine($"c {digitOrLetter.Test('a')} C {digitOrLetter.Test('C')} 5 {digitOrLetter.Test('5')}");
             
             var stringsCatalogue = new Catalogue<string>()
                 .Add("cabcc")

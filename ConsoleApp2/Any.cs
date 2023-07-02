@@ -1,12 +1,22 @@
-using System;
-
 namespace ConsoleApp2
 {
-    /*public struct Any<T> : IMonoid<Predicate<T>>
+    public class Any<T> : IMonoid<Any<T>>
     {
-        public Predicate<T> Zero => _ => false;
+        private readonly Predicate<T> _predicate;
 
-        public Predicate<T> Plus(Predicate<T> left, Predicate<T> right) =>
-            x => left(x) || right(x);
-    }*/
+        private Any(Predicate<T> predicate) =>
+            _predicate = predicate;
+
+        public bool Test(T obj) =>
+            _predicate(obj);
+
+        public static Any<T> operator +(Any<T> left, Any<T> right) =>
+            (Predicate<T>)(x => left._predicate(x) || right._predicate(x));
+
+        public static Any<T> AdditiveIdentity =>
+            (Predicate<T>)(_ => false);
+
+        public static implicit operator Any<T>(Predicate<T> pred) =>
+            new(pred);
+    }
 }
