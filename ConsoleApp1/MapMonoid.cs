@@ -14,8 +14,8 @@ namespace ConsoleApp1
             var result = Zero;
             foreach (var (key, value) in left.Concat(right))
             {
-                result[key] = result.ContainsKey(key)
-                    ? valueSemiGroup.Plus(result[key], value)
+                result[key] = result.TryGetValue(key, out var v)
+                    ? valueSemiGroup.Plus(v, value)
                     : value;
             }
             

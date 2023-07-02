@@ -1,5 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace ConsoleApp1
 {
     public struct PairedListGroup<T> : IGroup<PairedList<T>>
