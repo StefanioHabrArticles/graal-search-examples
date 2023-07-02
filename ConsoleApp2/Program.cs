@@ -1,5 +1,4 @@
-﻿
-namespace ConsoleApp2
+﻿namespace ConsoleApp2
 {
     internal static class Program
     {
@@ -16,15 +15,16 @@ namespace ConsoleApp2
             var richest = people.Sum();
             Console.WriteLine(richest);
 
-            var predicates = new List<Predicate<char>>
-            {
-                x => x is >= '0' and <= '9',
-                x => x is >= 'A' and <= 'Z',
-                x => x is >= 'a' and <= 'z'
-            }.Select<Predicate<char>, Any<char>>(x => x).ToList();
-            var digitOrLetter = predicates.Sum();
+            var digitOrLetter = new List<Predicate<char>>
+                {
+                    x => x is >= '0' and <= '9',
+                    x => x is >= 'A' and <= 'Z',
+                    x => x is >= 'a' and <= 'z'
+                }
+                .Select<Predicate<char>, Any<char>>(x => x)
+                .ToList().Sum();
             Console.WriteLine($"c {digitOrLetter.Test('a')} C {digitOrLetter.Test('C')} 5 {digitOrLetter.Test('5')}");
-            
+
             var stringsCatalogue = new Catalogue<string>()
                 .Add("cabcc")
                 .Pass()
@@ -46,6 +46,22 @@ namespace ConsoleApp2
             logs.ForEach(Console.WriteLine);
             var someDtoObjects = someDtoCatalogue.Collect();
             someDtoObjects.ForEach(Console.WriteLine);
+
+            SquareMatrix<int> testMatrix = new(3,
+                new[] { 1, 0, 3 },
+                new[] { 0, 5, 0 },
+                new[] { 2, 0, 6 }
+            );
+            Console.WriteLine(testMatrix ^ 4);
+
+            var weightedGraph = new WeightedGraph(4,
+                (0, new() { (1, 3), (2, 8), (3, 12) }),
+                (1, new() { (2, 2), (3, 10) }),
+                (2, new() { (3, 3) })
+            );
+
+            Console.WriteLine(weightedGraph.GetShortestPath(0, 3, 3));
+            Console.WriteLine(weightedGraph.GetLongestPath(0, 3, 2));
         }
     }
 }

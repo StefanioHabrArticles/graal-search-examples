@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
-
-namespace ConsoleApp1
+namespace ConsoleApp2
 {
     public class WeightedGraph
     {
@@ -15,13 +12,13 @@ namespace ConsoleApp1
                 .ForEach(x => _adjacencyList[x.Item1] = x.Item2);
         }
 
-        private SquareMatrix<double, S> GetAdjacencyMatrix<S>() 
-            where S : struct, ISemiRing<double>
+        private SquareMatrix<TSemiRing> GetAdjacencyMatrix<TSemiRing>()
+            where TSemiRing : IDoubleSemiRing<TSemiRing>
         {
-            var adjacencyMatrix = new SquareMatrix<double, S>(_size);
+            var adjacencyMatrix = new SquareMatrix<TSemiRing>(_size);
             for (var i = 0; i < _size; i++)
             {
-                adjacencyMatrix[i, i] = default(S).One;
+                adjacencyMatrix[i, i] = TSemiRing.MultiplicativeIdentity;
             }
 
             foreach (var key in _adjacencyList.Keys)
@@ -34,13 +31,11 @@ namespace ConsoleApp1
 
             return adjacencyMatrix;
         }
-        
-        public double GetShortestPath(int i, int j, int k) => 
-            GetAdjacencyMatrix<MinPlus>()
-                .Power(k)[i, j];
+
+        public double GetShortestPath(int i, int j, int k) =>
+            (double)(GetAdjacencyMatrix<MinPlus>() ^ k)[i, j];
 
         public double GetLongestPath(int i, int j, int k) =>
-            GetAdjacencyMatrix<MaxPlus>()
-                .Power(k)[i, j];
+            (double)(GetAdjacencyMatrix<MaxPlus>() ^ k)[i, j];
     }
 }
