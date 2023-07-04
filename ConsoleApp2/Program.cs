@@ -23,7 +23,7 @@
                 }
                 .Select(x => (Any<char>)x)
                 .ToList().Sum();
-            Console.WriteLine($"c {digitOrLetter.Test('a')} C {digitOrLetter.Test('C')} 5 {digitOrLetter.Test('5')}");
+            Console.WriteLine($"$ - {digitOrLetter.Test('$')}; Z - {digitOrLetter.Test('Z')}; 5 - {digitOrLetter.Test('5')}");
 
             var stringsCatalogue = new Catalogue<string>()
                 .Add("cabcc")
