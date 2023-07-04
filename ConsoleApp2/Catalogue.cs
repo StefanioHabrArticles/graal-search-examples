@@ -50,7 +50,7 @@ namespace ConsoleApp2
             GetEnumerator();
     }
 
-    public record CatalogueEvent;
+    public abstract record CatalogueEvent;
 
     public record Add<T>(T Data) : CatalogueEvent;
 
