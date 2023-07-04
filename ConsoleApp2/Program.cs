@@ -7,13 +7,13 @@
         {
             var people = new List<Person>
             {
-                new(),
+                Person.AdditiveIdentity,
                 new("Bob", 1000),
                 new("Tim", 1239),
                 new("Jeff", 2000000000)
             };
             var richest = people.Sum();
-            Console.WriteLine(richest);
+            Console.WriteLine(richest.Name);
 
             var digitOrLetter = new List<Predicate<char>>
                 {
