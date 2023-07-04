@@ -21,7 +21,7 @@
                     x => x is >= 'A' and <= 'Z',
                     x => x is >= 'a' and <= 'z'
                 }
-                .Select<Predicate<char>, Any<char>>(x => x)
+                .Select(x => (Any<char>)x)
                 .ToList().Sum();
             Console.WriteLine($"c {digitOrLetter.Test('a')} C {digitOrLetter.Test('C')} 5 {digitOrLetter.Test('5')}");
 
