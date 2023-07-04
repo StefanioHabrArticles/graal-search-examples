@@ -60,6 +60,7 @@
                 (2, new() { (3, 3) })
             );
 
+            Console.WriteLine(weightedGraph);
             Console.WriteLine(weightedGraph.GetShortestPath(0, 3, 3));
             Console.WriteLine(weightedGraph.GetLongestPath(0, 3, 2));
         }

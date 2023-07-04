@@ -1,11 +1,13 @@
+using System.Text;
+
 namespace ConsoleApp2
 {
     public class WeightedGraph
     {
         private readonly int _size;
-        private readonly Dictionary<int, List<(int Vertex, double Weight)>> _adjacencyList = new();
+        private readonly Dictionary<int, List<(int Vertex, int Weight)>> _adjacencyList = new();
 
-        public WeightedGraph(int size, params (int, List<(int Vertex, double Weight)>)[] adjacencyList)
+        public WeightedGraph(int size, params (int, List<(int Vertex, int Weight)>)[] adjacencyList)
         {
             _size = size;
             adjacencyList.ToList()
@@ -37,5 +39,14 @@ namespace ConsoleApp2
 
         public double GetLongestPath(int i, int j, int k) =>
             (double)(GetAdjacencyMatrix<MaxPlus>() ^ k)[i, j];
+
+        public override string ToString() =>
+            new StringBuilder($"digraph wg_{GetHashCode()} {{\n")
+                .Append("\trankdir=LR\n")
+                .AppendJoin('\n', _adjacencyList.SelectMany(kvp => kvp.Value
+                        .Select(v => new { Vertex = kvp.Key, Edge = v }))
+                    .Select(x => $"\t{x.Vertex}->{x.Edge.Vertex} [label=\"{x.Edge.Weight}\"] [weight={x.Edge.Weight}]"))
+                .Append("\n}")
+                .ToString();
     }
 }
