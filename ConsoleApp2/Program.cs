@@ -37,15 +37,22 @@
             ).Merge();
             Console.WriteLine(string.Join("", chars));
 
-            var someDtoCatalogue = new Catalogue<SomeDto>()
-                .Add(new SomeDto(1, false, "asa"))
-                .Add(new SomeDto(2, true, "asa"))
-                .Remove(new SomeDto(1, false, "asa"));
+            var someDtoCatalogue = new Catalogue<SomeDto>
+            {
+                new SomeDto(1, false, "asa"),
+                new SomeDto(2, true, "asa")
+            }.Remove(new SomeDto(1, false, "asa"));
             Console.WriteLine(someDtoCatalogue.Reduce(_ => 1));
             var logs = someDtoCatalogue.ToList();
             logs.ForEach(Console.WriteLine);
             var someDtoObjects = someDtoCatalogue.Collect();
             someDtoObjects.ForEach(Console.WriteLine);
+
+            var filter = new Catalogue<Predicate<int>>()
+                .Add(x => x > 2)
+                .Remove(x => x > 5)
+                .Reduce(x => (All<int>)x);
+            Console.WriteLine($"4 - {filter.Test(4)}; 6 - {filter.Test(6)}");
 
             SquareMatrix<int> testMatrix = new(3,
                 new[] { 1, 0, 3 },
