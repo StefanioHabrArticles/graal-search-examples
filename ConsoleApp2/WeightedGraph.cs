@@ -7,11 +7,11 @@ namespace ConsoleApp2
         private readonly int _size;
         private readonly Dictionary<int, List<(int Vertex, int Weight)>> _adjacencyList = new();
 
-        public WeightedGraph(int size, params (int, List<(int Vertex, int Weight)>)[] adjacencyList)
+        public WeightedGraph(int size, params (int Vertex, List<(int Vertex, int Weight)> Edges)[] adjacencyList)
         {
             _size = size;
             adjacencyList.ToList()
-                .ForEach(x => _adjacencyList[x.Item1] = x.Item2);
+                .ForEach(x => _adjacencyList[x.Vertex] = x.Edges);
         }
 
         private SquareMatrix<TSemiRing> GetAdjacencyMatrix<TSemiRing>()
