@@ -102,15 +102,16 @@
 
         private static void Example7()
         {
-            var weightedGraph = new WeightedGraph(4,
+            var weightedGraph = new WeightedGraph(5,
                 (0, new() { (1, 3), (2, 8), (3, 12) }),
-                (1, new() { (2, 2), (3, 10) }),
-                (2, new() { (3, 3) })
+                (1, new() { (2, 2), (4, 10) }),
+                (2, new() { (4, 3) }),
+                (3, new() { (4, 2) })
             );
 
             Console.WriteLine(weightedGraph);
-            Console.WriteLine(weightedGraph.GetShortestPath(0, 3, 3));
-            Console.WriteLine(weightedGraph.GetLongestPath(0, 3, 2));
+            Console.WriteLine(weightedGraph.GetShortestPath(0, 4, 3));
+            Console.WriteLine(weightedGraph.GetLongestPath(0, 4, 2));
         }
     }
 }
