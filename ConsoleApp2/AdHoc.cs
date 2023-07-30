@@ -1,11 +1,11 @@
 namespace ConsoleApp2;
 
-        class Appender
-        {
-            public T AppendItems<TAppendable, T>(T a, T b)
-                where TAppendable : struct, IAppendable<T> =>
-                default(TAppendable).Append(a, b);
-        }
+class Appender
+{
+    public T AppendItems<TAppendable, T>(T a, T b)
+        where TAppendable : struct, IAppendable<T> =>
+        default(TAppendable).Append(a, b);
+}
 
 interface IAppendable<T>
 {
